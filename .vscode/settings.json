@@ -1,0 +1,23 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "stylelint.enable": true,
+  "markiscodecoverage.searchCriteria": "coverage/lcov*.info",
+  "scssFormatter.singleQuote": true,
+  "files.associations": {
+    "*.scss": "postcss"
+  },
+  "explorer.compactFolders": false,
+  "ngrxUml.output.outDir": "ngrx-uml",
+  "ngrxUml.input.tsConfigFile": "tsconfig.base.json",
+  "ngrxUml.output.generateWsdFiles": true,
+  "plantuml.exportOutDir": "ngrx-uml",
+  "plantuml.diagramsRoot": "ngrx-uml/wsd",
+  "plantuml.exportFormat": "png",
+  "plantuml.exportSubFolder": false,
+  "turboConsoleLog.addSemicolonInTheEnd": true,
+  "turboConsoleLog.quote": "`",
+  "turboConsoleLog.includeFileNameAndLineNum": false
+}

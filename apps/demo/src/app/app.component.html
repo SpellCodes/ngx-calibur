@@ -1,0 +1,160 @@
+<div class="container mx-auto">
+  <div class="my-4 text-center">
+    <h1>
+      NGX-Calibur
+    </h1>
+    <small>It goes like a sword</small>
+  </div>
+
+  <div class="my-4">
+    day
+    <br>
+    <input
+      type="radio"
+      id="customWeekTpl"
+      name="weekTpl"
+      value="customWeekView"
+      [(ngModel)]="expo.weekTpl"
+    />
+    <label
+      class="ml-1"
+      for="customWeekTpl"
+    >Custom</label>
+
+    <br>
+
+    <input
+      type="radio"
+      id="defaultWeekTpl"
+      name="weekTpl"
+      [value]="null"
+      [(ngModel)]="expo.weekTpl"
+    />
+    <label
+      class="ml-1"
+      for="defaultWeekTpl"
+    >Default</label>
+
+    <br>
+
+    week
+    <br>
+    <input
+      type="radio"
+      id="customDayTpl"
+      name="dayTpl"
+      value="customDayView"
+      [(ngModel)]="expo.dayTpl"
+    />
+    <label
+      class="ml-1"
+      for="customDayTpl"
+    >Custom</label>
+
+    <br>
+
+    <input
+      type="radio"
+      id="defaultDayTpl"
+      name="dayTpl"
+      [value]="null"
+      [(ngModel)]="expo.dayTpl"
+    />
+    <label
+      class="ml-1"
+      for="defaultDayTpl"
+    >Default</label>
+  </div>
+
+
+  <ng-template
+    #customDayView
+    let-day
+  >
+    {{ day | date: 'EEEE' }}
+    <br>
+    {{ day | date: 'dd' }}
+  </ng-template>
+
+  <ng-template
+    #customWeekView
+    let-week
+    let-weekIdx="weekIdx"
+    let-day="day"
+    let-dayTemplate="dayTemplate"
+  >
+    <div
+      class="p-4 text-center text-red-900"
+      [ngClass]="{
+        'bg-yellow-300': (weekIdx >= 0 || weekIdx < 5),
+        'bg-green-300': (weekIdx === 5 || weekIdx === 6)
+      }"
+    >
+      <ng-template #defaultDay>{{ day | date: 'dd/MM' }}</ng-template>
+      <ng-container
+        [ngTemplateOutlet]="dayTemplate ? dayTemplate : defaultDay"
+        [ngTemplateOutletContext]="{ $implicit: day }"
+      ></ng-container>
+    </div>
+  </ng-template>
+
+  <xcb-monthly-view
+    [date]="date"
+    [weekTemplate]="getTemplateRefFromName(expo.weekTpl)"
+    [dayTemplate]="getTemplateRefFromName(expo.dayTpl)"
+  ></xcb-monthly-view>
+
+  <div class="flex justify-center mt-4">
+    <button
+      (click)="onPreviousMonth()"
+      class="mr-2 btn btn-blue"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-5 h-5 text-white"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+
+    <button
+      (click)="onCurrentMonth()"
+      class="mx-2 btn btn-blue"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-5 h-5 text-white"
+      >
+        <path
+          d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+        />
+      </svg>
+    </button>
+
+    <button
+      (click)="onNextMonth()"
+      class="ml-2 btn btn-blue"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-5 h-5 text-white"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

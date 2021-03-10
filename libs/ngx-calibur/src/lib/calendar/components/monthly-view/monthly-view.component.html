@@ -1,0 +1,30 @@
+<div
+  *ngFor="let week of daysInView | monthByWeek; first as first"
+  class="grid grid-cols-7 divide-x divide-gray-500"
+  [ngClass]="{ 'border-t border-gray-500': !first }"
+>
+  <ng-container *ngFor="let day of week; index as weekIdx">
+    <ng-template #defaultWeek>
+      <div
+        class="p-4 text-center"
+        [ngClass]="{ 'bg-gray-300': (weekIdx === 5 || weekIdx === 6) }"
+      >
+        <ng-template #defaultDay>{{ day | date: 'dd/MM' }}</ng-template>
+        <ng-container
+          [ngTemplateOutlet]="dayTemplate ? dayTemplate : defaultDay"
+          [ngTemplateOutletContext]="{ $implicit: day }"
+        ></ng-container>
+      </div>
+    </ng-template>
+
+    <ng-container
+      [ngTemplateOutlet]="weekTemplate ? weekTemplate : defaultWeek"
+      [ngTemplateOutletContext]="{
+        $implicit: week,
+        weekIdx: weekIdx,
+        day: day,
+        dayTemplate: dayTemplate
+      }"
+    ></ng-container>
+  </ng-container>
+</div>
